@@ -1,4 +1,4 @@
-package com.example.alunos.trabalhojefao;
+package com.example.alunos.trabalhojefao.banco;
 
 public class Produto {
 
