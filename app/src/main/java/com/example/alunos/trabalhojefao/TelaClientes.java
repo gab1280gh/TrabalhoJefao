@@ -11,7 +11,7 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
 
     EditText et_nomeCliente, et_telefoneCliente, et_enderecoCliente;
     Button bt_inserirCliente, bt_atualizarCliente, bt_removerCliente;
-    ListView lv_clientes;,
+    ListView lv_clientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,6 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        
+
     }
 }
