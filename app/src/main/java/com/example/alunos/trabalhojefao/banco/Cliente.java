@@ -12,6 +12,16 @@ public class Cliente {
 
     private String nome;
 
+
+
+    public Cliente(int id, String cpf, String telefone, String endereco, String nome) {
+        this.id = id;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }
