@@ -10,6 +10,13 @@ public class Produto {
 
     private String foto;
 
+    public Produto(int id, String descricao, Double valor, String foto) {
+        this.id = id;
+        this.descricao = descricao;
+        this.valor = valor;
+        this.foto = foto;
+    }
+
     public int getId() {
         return id;
     }

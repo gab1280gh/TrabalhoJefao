@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.alunos.trabalhojefao.banco.Produto;
+
 import java.util.ArrayList;
 
 public class TelaProdutos extends AppCompatActivity implements View.OnClickListener {
