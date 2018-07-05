@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".TelaClientes" />
         <activity android:name=".TelaProdutos" />
-        <activity android:name=".TelaPedidos"></activity>
+        <activity android:name=".TelaPedidos" />
+        <activity android:name=".TelaFazPedido"></activity>
     </application>
 
 </manifest>

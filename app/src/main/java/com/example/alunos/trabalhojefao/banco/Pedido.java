@@ -1,4 +1,4 @@
-package com.example.alunos.trabalhojefao;
+package com.example.alunos.trabalhojefao.banco;
 
 import java.util.Date;
 

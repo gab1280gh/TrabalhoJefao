@@ -6,4 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".TelaClientes">
 
+    <ListView
+        android:id="@+id/LV_cli"
+        android:layout_width="368dp"
+        android:layout_height="186dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="317dp" />
+
+    <Button
+        android:id="@+id/BT_InsCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inserir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58" />
+
+    <Button
+        android:id="@+id/BT_delCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deletar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.324"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58" />
+
+    <Button
+        android:id="@+id/BT_attCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Atualizar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58" />
+
+    <EditText
+        android:id="@+id/ET_nomeCli"
+        android:layout_width="366dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nome"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <EditText
+        android:id="@+id/ET_teleCli"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Telefone"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.133" />
+
+    <EditText
+        android:id="@+id/ET_endeCli"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Endereço"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="108dp" />
 </android.support.constraint.ConstraintLayout>

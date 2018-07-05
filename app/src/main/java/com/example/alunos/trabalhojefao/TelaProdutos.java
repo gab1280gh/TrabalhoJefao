@@ -20,6 +20,8 @@ public class TelaProdutos extends AppCompatActivity implements View.OnClickListe
     ListView lv_produto;
     Produto produtoSelecionado;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
