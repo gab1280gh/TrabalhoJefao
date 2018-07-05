@@ -17,15 +17,12 @@ public class Produto {
         this.foto = foto;
     }
 
-<<<<<<< HEAD
-    public Produto() {
+    public Produto() {};
 
-=======
     public Produto(String descricao, Double valor, String foto) {
         this.descricao = descricao;
         this.valor = valor;
         this.foto = foto;
->>>>>>> 5a5eed6dd11b50b9f2626444de20fd30446cb6a4
     }
 
     public int getId() {

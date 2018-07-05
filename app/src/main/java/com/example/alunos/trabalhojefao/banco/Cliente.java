@@ -10,11 +10,6 @@ public class Cliente {
 
     private String telefone;
 
-<<<<<<< HEAD
-    private String endereco;
-=======
->>>>>>> 5a5eed6dd11b50b9f2626444de20fd30446cb6a4
-
     private String endereco;
 
     public Cliente(int id, String cpf, String telefone, String endereco, String nome) {
@@ -25,10 +20,10 @@ public class Cliente {
         this.nome = nome;
     }
 
-<<<<<<< HEAD
-=======
+    public Cliente() {
 
->>>>>>> 5a5eed6dd11b50b9f2626444de20fd30446cb6a4
+    }
+
     public int getId() {
         return id;
     }

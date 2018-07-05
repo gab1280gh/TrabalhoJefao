@@ -7,12 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.alunos.trabalhojefao.banco.Cliente;
+import com.example.alunos.trabalhojefao.banco.ManipulaCliente;
 
 public class TelaClientes extends AppCompatActivity implements View.OnClickListener {
 
-    EditText et_nomeCliente, et_telefoneCliente, et_enderecoCliente;
+    EditText et_nomeCliente, et_telefoneCliente, et_enderecoCliente, et_cpf;
     Button bt_inserirCliente, bt_atualizarCliente, bt_removerCliente, bt_voltar;
     ListView lv_clientes;
+    ManipulaCliente manipulador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,7 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
         et_nomeCliente = findViewById(R.id.ET_nomeCli);
         et_enderecoCliente = findViewById(R.id.ET_endeCli);
         et_telefoneCliente = findViewById(R.id.ET_teleCli);
+        et_cpf = findViewById(R.id.et_cpf);
 
         lv_clientes = findViewById(R.id.LV_cli);
 
@@ -35,10 +41,28 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
         bt_inserirCliente.setOnClickListener(this);
         bt_voltar.setOnClickListener(this);
 
+        manipulador = new ManipulaCliente(this);
+
     }
 
     @Override
     public void onClick(View v) {
+
+        if (bt_inserirCliente.getId() == v.getId()){
+            Cliente cliente = new Cliente();
+            cliente.setCpf(et_cpf.getText().toString());
+            cliente.setEndereco(et_enderecoCliente.getText().toString());
+            cliente.setNome(et_nomeCliente.getText().toString());
+            cliente.setTelefone(et_telefoneCliente.getText().toString());
+            manipulador.abrir();
+            long verificaInsercao = manipulador.inserir(cliente);
+            mensagem("Inseriu cliente: " + verificaInsercao);
+            manipulador.fechar();
+            et_nomeCliente.setText("");
+            et_cpf.setText("");
+            et_enderecoCliente.setText("");
+            et_telefoneCliente.setText("");
+        }
 
         if (bt_voltar.getId() == v.getId()){
 
@@ -47,5 +71,10 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
 
         }
 
+    }
+
+    public void mensagem(String msg)
+    {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }
