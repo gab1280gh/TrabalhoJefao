@@ -32,7 +32,7 @@ public class TelaFazPedido extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        
+
         if (v.getId() == bt_cancelar.getId()){
             Intent it = new Intent (TelaFazPedido.this, TelaPedidos.class);
             startActivity(it);
