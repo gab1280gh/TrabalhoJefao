@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PedidoDAO  {
+public class PedidoDAO {
 
     private Cursor buscador;
     private ContentValues pacoteInsercao;
@@ -16,7 +16,7 @@ public class PedidoDAO  {
     private SQLiteDatabase dbSet;
     private Context _context;
 
-    public PedidoDAO(Context context){
+    public PedidoDAO(Context context) {
         _context = context;
     }
 
@@ -27,57 +27,78 @@ public class PedidoDAO  {
 
     }
 
-    public void fechar()
-    {
+    public void fechar() {
         dbContext.close();
     }
 
-    public long inserir(Pedido pedido)
-    {
+    public long inserir(Pedido pedido, ArrayList<Produto> produtos, int quantidade) {
         long posicaoBanco;
         pacoteInsercao = new ContentValues();
         pacoteInsercao.put("data", pedido.getData());
-        //pacoteInsercao.put("telefone", cliente.getTelefone());
-       // pacoteInsercao.put("cpf", pedido.fk_cliente_id());
+        pacoteInsercao.put("fk_id_cliente", pedido.getFk_cliente_id());
+        // pacoteInsercao.put("cpf", pedido.fk_cliente_id());
 
-        posicaoBanco = dbSet.insert("cliente", null,pacoteInsercao);
-        return(posicaoBanco);
+        posicaoBanco = dbSet.insert("pedido", null, pacoteInsercao);
+        for (Produto produto : produtos) {
+            ContentValues pacoteInsercaoTemp = new ContentValues();
+            pacoteInsercaoTemp.put("quantidade", quantidade);
+            pacoteInsercaoTemp.put("fk_id_produto", produto.getId());
+            pacoteInsercaoTemp.put("fk_id_pedido", posicaoBanco);
+            dbSet.insert("produto_pedido", null, pacoteInsercaoTemp);
+        }
+        return (posicaoBanco);
     }
 
-    public long alterar(Cliente cliente)
-    {
+    public long alterar(Pedido pedido) {
         long posicaoBanco;
         pacoteInsercao = new ContentValues();
-        pacoteInsercao.put("nome", cliente.getNome());
-        pacoteInsercao.put("telefone", cliente.getTelefone());
-        pacoteInsercao.put("cpf", cliente.getCpf());
-        posicaoBanco = dbSet.update("cliente",pacoteInsercao, "id = " + cliente.getId() , null);
-        return(posicaoBanco);
+        pacoteInsercao.put("data", pedido.getData());
+        pacoteInsercao.put("fk_id_cliente", pedido.getFk_cliente_id());
+        //pacoteInsercao.put("cpf", cliente.getCpf());
+        posicaoBanco = dbSet.update("pedido", pacoteInsercao, "id = " + pedido.getId(), null);
+        return (posicaoBanco);
     }
 
-    public void deletar(Cliente cliente){
-        dbSet.delete("cliente"," id = " + cliente.getId(),null);
+    public void deletar(Pedido pedido) {
+        dbSet.delete("pedido", " id = " + pedido.getId(), null);
     }
 
-    public ArrayList<Cliente> listarClientes(){
-        Cliente cliente;
-        ArrayList<Cliente> listaClientes = new ArrayList<>();
-        String sql = "SELECT * FROM cliente";
-        buscador = dbSet.rawQuery(sql,null);
-        if(buscador.getCount() > 0){
+    public ArrayList<Pedido> listarPedidos() {
+        Pedido pedido;
+        ArrayList<Pedido> listaPedidos = new ArrayList<>();
+        String sql = "SELECT * FROM pedido";
+        buscador = dbSet.rawQuery(sql, null);
+        if (buscador.getCount() > 0) {
             buscador.moveToFirst();
-            do{
-                cliente = new Cliente(
+            do {
+                pedido = new Pedido(
                         buscador.getInt(buscador.getColumnIndex("id")),
-                        buscador.getString(buscador.getColumnIndex("cpf")),
-                        buscador.getString(buscador.getColumnIndex("telefone")),
-                        buscador.getString(buscador.getColumnIndex("endereco")),
-                        buscador.getString(buscador.getColumnIndex("nome"))
+                        buscador.getString(buscador.getColumnIndex("data")),
+                        buscador.getInt(buscador.getColumnIndex("fk_id_cliente"))
                 );
-                listaClientes.add(cliente);
-            }while(buscador.moveToNext());
+                listaPedidos.add(pedido);
+            } while (buscador.moveToNext());
         }
-        return (listaClientes);
+        return (listaPedidos);
+    }
+
+    public ArrayList<Pedido> listarPedidosProCliente(int cliente_id) {
+        Pedido pedido;
+        ArrayList<Pedido> listaPedidos = new ArrayList<>();
+        String sql = "SELECT * FROM pedido where fk_id_cliente = " + cliente_id;
+        buscador = dbSet.rawQuery(sql, null);
+        if (buscador.getCount() > 0) {
+            buscador.moveToFirst();
+            do {
+                pedido = new Pedido(
+                        buscador.getInt(buscador.getColumnIndex("id")),
+                        buscador.getString(buscador.getColumnIndex("data")),
+                        buscador.getInt(buscador.getColumnIndex("fk_id_cliente"))
+                );
+                listaPedidos.add(pedido);
+            } while (buscador.moveToNext());
+        }
+        return (listaPedidos);
     }
 
 }
