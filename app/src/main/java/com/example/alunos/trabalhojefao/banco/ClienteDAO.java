@@ -38,6 +38,7 @@ public class ClienteDAO {
         pacoteInsercao = new ContentValues();
         pacoteInsercao.put("nome", cliente.getNome());
         pacoteInsercao.put("telefone", cliente.getTelefone());
+        pacoteInsercao.put("endereco", cliente.getEndereco());
         pacoteInsercao.put("cpf", cliente.getCpf());
 
         posicaoBanco = dbSet.insert("cliente", null,pacoteInsercao);
@@ -50,6 +51,7 @@ public class ClienteDAO {
         pacoteInsercao = new ContentValues();
         pacoteInsercao.put("nome", cliente.getNome());
         pacoteInsercao.put("telefone", cliente.getTelefone());
+        pacoteInsercao.put("endereco", cliente.getEndereco());
         pacoteInsercao.put("cpf", cliente.getCpf());
         posicaoBanco = dbSet.update("cliente",pacoteInsercao, "id = " + cliente.getId() , null);
         return(posicaoBanco);

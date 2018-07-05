@@ -1,5 +1,6 @@
 package com.example.alunos.trabalhojefao;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +10,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.alunos.trabalhojefao.adaptadores.AdaptadorProduto;
+import com.example.alunos.trabalhojefao.banco.ManipulaProduto;
 import com.example.alunos.trabalhojefao.banco.Produto;
 
 import java.util.ArrayList;
 
 public class TelaProdutos extends AppCompatActivity implements View.OnClickListener {
 
-    Button bt_inserirProduto, bt_alterarProduto, bt_deletarProduto;
+    Button bt_inserirProduto, bt_alterarProduto, bt_deletarProduto, bt_voltar;
     EditText et_descricaoProduto, et_valorProduto;
     ManipulaProduto manipulaProduto;
     ArrayList<Produto> al_produto;
@@ -32,9 +35,14 @@ public class TelaProdutos extends AppCompatActivity implements View.OnClickListe
         bt_inserirProduto = findViewById(R.id.bt_inserirProduto);
         bt_alterarProduto = findViewById(R.id.bt_alterarProduto);
         bt_deletarProduto = findViewById(R.id.bt_deletarProduto);
+        bt_voltar = findViewById(R.id.BT_prodVoltar);
+
         et_descricaoProduto = findViewById(R.id.et_descricaoProduto);
         et_valorProduto = findViewById(R.id.et_valorProduto);
         lv_produto = findViewById(R.id.lv_produto);
+
+        bt_inserirProduto.setOnClickListener(this);
+        bt_voltar.setOnClickListener(this);
 
         lv_produto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,7 +58,7 @@ public class TelaProdutos extends AppCompatActivity implements View.OnClickListe
     public void montarListView() {
         manipulaProduto = new ManipulaProduto(this);
         manipulaProduto.abrir();
-        al_produto = manipulaProduto.retornarProduto();
+        al_produto = manipulaProduto.retornaProduto();
         manipulaProduto.fechar();
         if (al_produto != null && !al_produto.isEmpty()) {
             lv_produto.setAdapter(new AdaptadorProduto(this, al_produto));
@@ -72,9 +80,15 @@ public class TelaProdutos extends AppCompatActivity implements View.OnClickListe
 
         }
         if (view.getId() == bt_alterarProduto.getId()) {
-            Produto produto =
+            //Produto produto =
         }
         if (view.getId() == bt_deletarProduto.getId()) {
+
+        }
+        if (view.getId() == bt_voltar.getId()){
+
+            Intent it = new Intent(TelaProdutos.this, TelaPrincipal.class);
+            startActivity(it);
 
         }
     }

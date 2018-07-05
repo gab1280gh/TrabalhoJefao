@@ -17,6 +17,10 @@ public class Produto {
         this.foto = foto;
     }
 
+    public Produto() {
+
+    }
+
     public int getId() {
         return id;
     }
