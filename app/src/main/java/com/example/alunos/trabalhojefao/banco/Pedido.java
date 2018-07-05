@@ -10,6 +10,13 @@ public class Pedido {
 
     private int fk_cliente_id;
 
+    public Pedido(int id, String data, int fk_cliente_id) {
+        this.id = id;
+        this.data = data;
+        this.fk_cliente_id = fk_cliente_id;
+    }
+
+
     public int getId() {
         return id;
     }
@@ -17,6 +24,7 @@ public class Pedido {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getData() {
         return data;
@@ -33,6 +41,7 @@ public class Pedido {
     public void setFk_cliente_id(int fk_cliente_id) {
         this.fk_cliente_id = fk_cliente_id;
     }
+
 
 
 }

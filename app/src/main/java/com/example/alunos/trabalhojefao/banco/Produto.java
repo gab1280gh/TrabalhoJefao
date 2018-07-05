@@ -17,6 +17,12 @@ public class Produto {
         this.foto = foto;
     }
 
+    public Produto(String descricao, Double valor, String foto) {
+        this.descricao = descricao;
+        this.valor = valor;
+        this.foto = foto;
+    }
+
     public int getId() {
         return id;
     }
@@ -48,4 +54,6 @@ public class Produto {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+
+
 }

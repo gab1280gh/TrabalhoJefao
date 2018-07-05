@@ -15,7 +15,7 @@ public class CriaBanco extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE pedido(id integer PRIMARY KEY AUTOINCREMENT NOT NULL, data text,fk_id_cliente, FOREIGN KEY(fk_id_cliente) REFERENCES cliente(id));");
-        db.execSQL("CREATE TABLE produto_pedido(id_produto_pedido integer PRIMARY KEY AUTOINCREMENT NOT NULL, fk_id_produto,fk_id_pedido, FOREIGN KEY(fk_id_produto) REFERENCES produto(id), FOREIGN KEY(fk_id_pedido) REFERENCES pedido(id) );");
+        db.execSQL("CREATE TABLE produto_pedido(id_produto_pedido integer PRIMARY KEY AUTOINCREMENT NOT NULL,quantidade integer NOT NULL, fk_id_produto,fk_id_pedido, FOREIGN KEY(fk_id_produto) REFERENCES produto(id), FOREIGN KEY(fk_id_pedido) REFERENCES pedido(id) );");
         db.execSQL("CREATE TABLE produto(id integer PRIMARY KEY AUTOINCREMENT NOT NULL, descricao text NOT NULL, foto text, valor real NOT NULL);");
         db.execSQL("CREATE TABLE cliente(id integer PRIMARY KEY AUTOINCREMENT NOT NULL, nome text NOT NULL, telefone text NOT NULL, endereco text NOT NULL);");
     }

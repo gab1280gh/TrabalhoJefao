@@ -8,8 +8,10 @@ public class Cliente {
 
     private String nome;
 
-<<<<<<< HEAD
+    private String telefone;
 
+
+    private String endereco;
 
     public Cliente(int id, String cpf, String telefone, String endereco, String nome) {
         this.id = id;
@@ -19,14 +21,6 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getNome() {
-        return nome;
-    }
-=======
-    private String telefone;
->>>>>>> 46191acf0654a2d40243071b3e96008102aee852
-
-    private String endereco;
 
     public int getId() {
         return id;
@@ -44,9 +38,13 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public String getNome() {return nome;}
+    public String getNome() {
+        return nome;
+    }
 
-    public void setNome(String nome) {this.nome = nome;}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getTelefone() {
         return telefone;
