@@ -10,8 +10,11 @@
         android:id="@+id/LV_cli"
         android:layout_width="368dp"
         android:layout_height="186dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="317dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 
     <Button
         android:id="@+id/BT_InsCliente"
@@ -83,8 +86,11 @@
         android:ems="10"
         android:hint="Endereço"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="108dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.232" />
 
     <Button
         android:id="@+id/BT_cliVoltar"

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public class ManipulaCliente {
 
@@ -40,5 +43,34 @@ public class ManipulaCliente {
         posicaoBanco = manipulaBancoDeDados.insert("cliente", null,pacoteDeInsercao);
         return(posicaoBanco);
     }
+    public ArrayList<Cliente> retornarClientes()
+    {
+        Cliente cliente;
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        String sql = "select * from cliente";
+        buscador = manipulaBancoDeDados.rawQuery(sql, null);
+        if(buscador.getCount()>0)
+        {
+            buscador.moveToFirst();
+            do{
+                cliente = new Cliente(buscador.getString(1), buscador.getString(2), buscador.getString(3), buscador.getString(4));
+                cliente.setId((int) buscador.getLong(0));
+                listaClientes.add(cliente);
+            }while(buscador.moveToNext());
+        }else{
+            listaClientes = null;
+        }
+        return(listaClientes);
+    }
 
+    public void deletar(Cliente cliente) {
+
+        try{
+            manipulaBancoDeDados.delete("cliente", " cpf = "+cliente.getCpf(), null);
+            //db.delete("tablename","id=? and name=?",new String[]{"1","jack"});
+        }catch(Exception e){
+            Log.i("Erro","Erro ao deletar");
+        }
+
+    }
 }

@@ -25,6 +25,11 @@ public class Produto {
         this.foto = foto;
     }
 
+    public Produto(String desc, Double valor) {
+        this.descricao = desc;
+        this.valor = valor;
+    }
+
     public int getId() {
         return id;
     }

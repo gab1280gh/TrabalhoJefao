@@ -20,6 +20,13 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public Cliente(String cpf, String nome, String telefone, String endereco) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.endereco = endereco;
+    }
+
     public Cliente() {
 
     }

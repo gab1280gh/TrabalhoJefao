@@ -58,6 +58,7 @@ public class ManipulaProduto {
             buscador.moveToFirst();
             do {
                 produto = new Produto(buscador.getInt(0), buscador.getString(1), buscador.getDouble(2), buscador.getString(3));
+                listaProduto.add(produto);
             } while (buscador.moveToNext());
         } else {
             listaProduto = null;
