@@ -3,16 +3,29 @@ package com.example.alunos.trabalhojefao;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class TelaPedidos extends AppCompatActivity implements View.OnClickListener {
+import com.example.alunos.trabalhojefao.adaptadores.AdaptadorCliente;
+import com.example.alunos.trabalhojefao.adaptadores.AdaptadorPedidos;
+import com.example.alunos.trabalhojefao.banco.Cliente;
+import com.example.alunos.trabalhojefao.banco.ManipulaPedidos;
+import com.example.alunos.trabalhojefao.banco.Pedido;
+
+import java.util.ArrayList;
+
+public class TelaPedidos extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     EditText et_cpf;
     Button bt_buscar, bt_novoPedido, bt_voltar;
     ListView lv_pedidos;
+    ManipulaPedidos manipulaPedidos;
+    ArrayList<Pedido> al_pedido;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +43,23 @@ public class TelaPedidos extends AppCompatActivity implements View.OnClickListen
         bt_novoPedido.setOnClickListener(this);
         bt_buscar.setOnClickListener(this);
         bt_voltar.setOnClickListener(this);
+        lv_pedidos.setOnItemClickListener(this);
+
+        manipulaPedidos = new ManipulaPedidos(this);
     }
 
     @Override
     public void onClick(View v) {
 
+        if(v.getId() == bt_buscar.getId()){
+            manipulaPedidos.abrir();
+            al_pedido = manipulaPedidos.retornarPedidos(et_cpf.getText().toString());
+            manipulaPedidos.fechar();
+            if (al_pedido != null){
+                lv_pedidos.setAdapter(new AdaptadorPedidos(this, al_pedido));
+            }
+
+        }
         if (v.getId() == bt_novoPedido.getId()){
 
             Intent it = new Intent (TelaPedidos.this, TelaFazPedido.class);
@@ -47,6 +72,11 @@ public class TelaPedidos extends AppCompatActivity implements View.OnClickListen
             startActivity(it);
 
         }
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
 }

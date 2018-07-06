@@ -16,6 +16,12 @@ public class Pedido {
         this.fk_cliente_id = fk_cliente_id;
     }
 
+    public Pedido(int id, int i, int fk_cliente_id) {
+        this.id = id;
+        this.data = data;
+        this.fk_cliente_id = fk_cliente_id;
+    }
+
 
     public int getId() {
         return id;
