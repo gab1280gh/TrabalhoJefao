@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ public class ManipulaPedidos {
     private CriaBanco retornaInstanciaDoBanco;
     private Context contexto;
     private SQLiteDatabase manipulaBancoDeDados;
+    private Produto produto;
 
     public ManipulaPedidos(Context c)
     {
@@ -79,7 +79,7 @@ public class ManipulaPedidos {
 
     }
 
-    public void registrarCompra(String s, Cliente cliente) {
+    public void registrarCompra(ArrayList<Integer> listaProds, Cliente cliente) {
 
         pacoteDeInsercao = new ContentValues();
         Date data = Calendar.getInstance().getTime();
@@ -91,6 +91,42 @@ public class ManipulaPedidos {
         pacoteDeInsercao.put("fk_id_cliente", cliente.getId());
         manipulaBancoDeDados.insert("pedido", null,pacoteDeInsercao);
 
+        String sql = "select id from pedido ORDER BY id DESC LIMIT 1 ";
+        buscador = manipulaBancoDeDados.rawQuery(sql, null);
+
+        buscador.moveToFirst();
+
+        adicionarProdAoPed(buscador.getInt(0), listaProds);
+
+    }
+
+    public void adicionarProdAoPed(Integer id, ArrayList<Integer> listaProds) {
+
+        for(int i = 0; i < listaProds.size(); i++){
+            pacoteDeInsercao = new ContentValues();
+            int idProd = listaProds.get(i);
+            pacoteDeInsercao.put("fk_id_pedido", id);
+            pacoteDeInsercao.put("fk_id_produto", idProd);
+            manipulaBancoDeDados.insert("produto_pedido", null,pacoteDeInsercao);
+        }
+    }
+
+    public ArrayList<Produto> retornaProdutos_Pedido(int id) {
+        Produto produto;
+        ArrayList<Produto> listaPP = new ArrayList<>();
+        String sql = "select produto.id, produto.descricao, produto.valor from produto inner join produto_pedido on produto.id = produto_pedido.fk_id_produto where produto_pedido.fk_id_pedido = " + id;
+        buscador = manipulaBancoDeDados.rawQuery(sql, null);
+        if(buscador.getCount()>0)
+        {
+            buscador.moveToFirst();
+            do{
+                produto = new Produto (buscador.getInt(0), buscador.getString(1), buscador.getInt(2));
+                listaPP.add(produto);
+            }while(buscador.moveToNext());
+        }else{
+            listaPP = null;
+        }
+        return listaPP;
     }
 }
 

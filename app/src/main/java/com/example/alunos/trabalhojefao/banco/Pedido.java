@@ -1,9 +1,12 @@
 package com.example.alunos.trabalhojefao.banco;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Pedido implements Serializable {
+public class Pedido implements Parcelable {
 
     private int id;
 
@@ -23,6 +26,24 @@ public class Pedido implements Serializable {
         this.fk_cliente_id = fk_cliente_id;
     }
 
+
+    protected Pedido(Parcel in) {
+        id = in.readInt();
+        data = in.readString();
+        fk_cliente_id = in.readInt();
+    }
+
+    public static final Creator<Pedido> CREATOR = new Creator<Pedido>() {
+        @Override
+        public Pedido createFromParcel(Parcel in) {
+            return new Pedido(in);
+        }
+
+        @Override
+        public Pedido[] newArray(int size) {
+            return new Pedido[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -49,6 +70,15 @@ public class Pedido implements Serializable {
         this.fk_cliente_id = fk_cliente_id;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(data);
+        dest.writeInt(fk_cliente_id);
+    }
 }

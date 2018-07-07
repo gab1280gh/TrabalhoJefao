@@ -75,7 +75,7 @@ public class ManipulaProduto {
         {
             buscador.moveToFirst();
             do{
-                produto = new Produto(buscador.getInt(0), buscador.getString(2), buscador.getDouble(3), buscador.getString(4));
+                produto = new Produto(buscador.getInt(0), buscador.getString(2), buscador.getDouble(3));
             }while(buscador.moveToNext());
         }else{
             produto = null;

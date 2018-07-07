@@ -1,5 +1,7 @@
 package com.example.alunos.trabalhojefao;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ public class TelaPedidos extends AppCompatActivity implements View.OnClickListen
     ManipulaPedidos manipulaPedidos;
     ArrayList<Pedido> al_pedido;
     Pedido pedido;
+    AlertDialog alerta;
 
 
     @Override
@@ -53,13 +56,16 @@ public class TelaPedidos extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
 
         if(v.getId() == bt_buscar.getId()){
-            manipulaPedidos.abrir();
-            al_pedido = manipulaPedidos.retornarPedidos(et_cpf.getText().toString());
-            manipulaPedidos.fechar();
-            if (al_pedido != null){
-                lv_pedidos.setAdapter(new AdaptadorPedidos(this, al_pedido));
+            if (et_cpf.getText().toString().matches("")){
+                alertar(this);
+            }else{
+                manipulaPedidos.abrir();
+                al_pedido = manipulaPedidos.retornarPedidos(et_cpf.getText().toString());
+                manipulaPedidos.fechar();
+                if (al_pedido != null){
+                    lv_pedidos.setAdapter(new AdaptadorPedidos(this, al_pedido));
+                }
             }
-
         }
         if (v.getId() == bt_novoPedido.getId()){
 
@@ -82,5 +88,14 @@ public class TelaPedidos extends AppCompatActivity implements View.OnClickListen
         Intent it = new Intent (TelaPedidos.this, TelaVisuPedido.class);
         it.putExtra("pedido", pedido);
         startActivity(it);
+    }
+
+    public void alertar(Context context)
+    {
+        AlertDialog.Builder construtor = new AlertDialog.Builder(context);
+        construtor.setTitle("Banco");
+        construtor.setMessage("Digite um CPF!");
+        alerta = construtor.create();
+        alerta.show();
     }
 }

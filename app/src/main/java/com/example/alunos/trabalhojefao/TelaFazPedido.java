@@ -16,15 +16,17 @@ import com.example.alunos.trabalhojefao.banco.ManipulaPedidos;
 import com.example.alunos.trabalhojefao.banco.ManipulaProduto;
 import com.example.alunos.trabalhojefao.banco.Produto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TelaFazPedido extends AppCompatActivity implements View.OnClickListener {
 
     EditText et_cpf;
-    Button bt_comprar, bt_cancelar;
+    Button bt_comprar, bt_cancelar, bt_addProd;
     EditText et_codProd;
     Cliente cliente;
     Produto produto;
+    ArrayList<Integer> listaProds;
     ManipulaCliente manipulaCliente;
     ManipulaPedidos manipulaPedidos;
     ManipulaProduto manipulaProduto;
@@ -37,14 +39,17 @@ public class TelaFazPedido extends AppCompatActivity implements View.OnClickList
 
         bt_comprar = findViewById(R.id.BT_comprar);
         bt_cancelar = findViewById(R.id.BT_cancelaPedido);
+        bt_addProd = findViewById(R.id.BT_addProd);
         et_cpf = findViewById(R.id.ET_cpfFazPedido);
         et_codProd = findViewById(R.id.ET_idProdFazPed);
 
         bt_cancelar.setOnClickListener(this);
         bt_comprar.setOnClickListener(this);
+        bt_addProd.setOnClickListener(this);
         manipulaCliente = new ManipulaCliente(this);
         manipulaPedidos = new ManipulaPedidos(this);
         manipulaProduto = new ManipulaProduto(this);
+        listaProds = new ArrayList<>();
     }
 
     @Override
@@ -52,7 +57,7 @@ public class TelaFazPedido extends AppCompatActivity implements View.OnClickList
 
         if (v.getId() == bt_comprar.getId()){
 
-            if (et_cpf.getText().toString().matches("") && et_codProd.getText().toString().matches("")){
+            if (et_cpf.getText().toString().matches("") || et_codProd.getText().toString().matches("")){
                 alertar(this);
             }else{
                 manipulaProduto.abrir();
@@ -64,7 +69,7 @@ public class TelaFazPedido extends AppCompatActivity implements View.OnClickList
 
                 if (produto != null && cliente != null){
                     manipulaPedidos.abrir();
-                    manipulaPedidos.registrarCompra(et_codProd.getText().toString(), cliente);
+                    manipulaPedidos.registrarCompra(listaProds, cliente);
                     manipulaCliente.fechar();
                 }else{
                     alertar2(this);
@@ -77,6 +82,12 @@ public class TelaFazPedido extends AppCompatActivity implements View.OnClickList
         if (v.getId() == bt_cancelar.getId()){
             Intent it = new Intent (TelaFazPedido.this, TelaPedidos.class);
             startActivity(it);
+        }
+
+
+        if (v.getId() == bt_addProd.getId()){
+            Integer aux = Integer.valueOf(et_codProd.getText().toString());
+            listaProds.add(aux);
         }
     }
 
