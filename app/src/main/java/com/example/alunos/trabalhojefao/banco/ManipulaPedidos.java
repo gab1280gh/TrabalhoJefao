@@ -7,7 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ManipulaPedidos {
 
@@ -50,21 +53,9 @@ public class ManipulaPedidos {
           Pedido pedido;
           int idBusca;
           ArrayList<Pedido> listaPedidos = new ArrayList<>();
-          String sqlCpf = "select id from cliente where cpf = " + cpf +";";
-          buscador = manipulaBancoDeDados.rawQuery(sqlCpf, null);
+          String sql = "select * from pedido inner join cliente on pedido.fk_id_cliente = cliente.id where cliente.cpf = " + cpf + ";";
+          buscador = manipulaBancoDeDados.rawQuery(sql, null);
           if(buscador.getCount()>0)
-          {
-              buscador.moveToFirst();
-              do{
-                  idBusca = buscador.getInt(0);
-              }while(buscador.moveToNext());
-          }else{
-              idBusca = 0;
-          }
-          if (idBusca != 0){
-              String sql = "select * from pedidos where fk_id_cliente = " + idBusca;
-              buscador = manipulaBancoDeDados.rawQuery(sqlCpf, null);
-              if(buscador.getCount()>0)
               {
                   buscador.moveToFirst();
                   do{
@@ -74,9 +65,7 @@ public class ManipulaPedidos {
               }else{
                   listaPedidos = null;
               }
-          }
-
-          return(listaPedidos);
+          return listaPedidos;
     }
 
     public void deletar(Pedido pedido) {
@@ -90,6 +79,19 @@ public class ManipulaPedidos {
 
     }
 
+    public void registrarCompra(String s, Cliente cliente) {
+
+        pacoteDeInsercao = new ContentValues();
+        Date data = Calendar.getInstance().getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String hoje = sdf.format(data);
+
+        pacoteDeInsercao.put("data", hoje);
+        pacoteDeInsercao.put("fk_id_cliente", cliente.getId());
+        manipulaBancoDeDados.insert("pedido", null,pacoteDeInsercao);
+
+    }
 }
 
 

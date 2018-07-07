@@ -52,7 +52,7 @@ public class ManipulaProduto {
     public ArrayList<Produto> retornaProduto() {
         Produto produto;
         ArrayList<Produto> listaProduto = new ArrayList<>();
-        String sql = "select * from produto";
+        String sql = "select * from produto;";
         buscador = manipulaBancoDeDados.rawQuery(sql, null);
         if (buscador.getCount() > 0) {
             buscador.moveToFirst();
@@ -64,5 +64,23 @@ public class ManipulaProduto {
             listaProduto = null;
         }
         return listaProduto;
+    }
+
+    public Produto buscaProdutoPorId(String s) {
+
+        Produto produto;
+        String sql = "select * from produto where id = " + s;
+        buscador = manipulaBancoDeDados.rawQuery(sql, null);
+        if(buscador.getCount()>0)
+        {
+            buscador.moveToFirst();
+            do{
+                produto = new Produto(buscador.getInt(0), buscador.getString(2), buscador.getDouble(3), buscador.getString(4));
+            }while(buscador.moveToNext());
+        }else{
+            produto = null;
+        }
+        return(produto);
+
     }
 }

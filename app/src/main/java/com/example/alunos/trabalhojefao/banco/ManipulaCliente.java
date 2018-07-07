@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,7 @@ public class ManipulaCliente {
     {
         Cliente cliente;
         ArrayList<Cliente> listaClientes = new ArrayList<>();
-        String sql = "select * from cliente";
+        String sql = "select * from cliente;";
         buscador = manipulaBancoDeDados.rawQuery(sql, null);
         if(buscador.getCount()>0)
         {
@@ -72,5 +73,22 @@ public class ManipulaCliente {
             Log.i("Erro","Erro ao deletar");
         }
 
+    }
+
+    public Cliente buscaPorCpf(String cpf) {
+        Cliente cliente;
+        String sql = "select * from cliente where cpf = " + cpf;
+        buscador = manipulaBancoDeDados.rawQuery(sql, null);
+        if(buscador.getCount()>0)
+        {
+            buscador.moveToFirst();
+            do{
+                cliente = new Cliente(buscador.getString(1), buscador.getString(2), buscador.getString(3), buscador.getString(4));
+                cliente.setId((int) buscador.getLong(0));
+            }while(buscador.moveToNext());
+        }else{
+            cliente = null;
+        }
+        return(cliente);
     }
 }
