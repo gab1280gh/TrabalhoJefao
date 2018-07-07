@@ -46,10 +46,12 @@ public class AdaptadorPedidos extends BaseAdapter {
         View subTela = inflador.inflate(R.layout.itempedido, null);
 
         TextView tv_data = subTela.findViewById(R.id.tv_data);
-        TextView tv_id = subTela.findViewById(R.id.tv_idCli);
+        TextView tv_idPed = subTela.findViewById(R.id.tv_idPed);
+        TextView tv_idCli = subTela.findViewById(R.id.tv_idCli);
 
         tv_data.setText(pedido.getData());
-        tv_id.setText((Long.toString(pedido.getFk_cliente_id())));
+        tv_idPed.setText((Long.toString(pedido.getId())));
+        tv_idCli.setText((Long.toString(pedido.getFk_cliente_id())));
 
         return (subTela);
     }

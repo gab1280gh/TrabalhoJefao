@@ -51,18 +51,25 @@ public class TelaFazPedido extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
         if (v.getId() == bt_comprar.getId()){
-            manipulaCliente.abrir();
-            cliente = manipulaCliente.buscaPorCpf(et_cpf.getText().toString());
-            manipulaCliente.fechar();
-            manipulaProduto.abrir();
-            produto = manipulaProduto.buscaProdutoPorId(et_codProd.getText().toString());
-            manipulaProduto.fechar();
-            if (produto != null || cliente != null){
-                manipulaPedidos.abrir();
-                manipulaPedidos.registrarCompra(et_codProd.getText().toString(), cliente);
-                manipulaCliente.fechar();
-            }else{
+
+            if (et_cpf.getText().toString().matches("") && et_codProd.getText().toString().matches("")){
                 alertar(this);
+            }else{
+                manipulaProduto.abrir();
+                produto = manipulaProduto.buscaProdutoPorId(Integer.parseInt(et_codProd.getText().toString()));
+                manipulaProduto.fechar();
+                manipulaCliente.abrir();
+                cliente = manipulaCliente.buscaPorCpf(et_cpf.getText().toString());
+                manipulaCliente.fechar();
+
+                if (produto != null && cliente != null){
+                    manipulaPedidos.abrir();
+                    manipulaPedidos.registrarCompra(et_codProd.getText().toString(), cliente);
+                    manipulaCliente.fechar();
+                }else{
+                    alertar2(this);
+                }
+
             }
 
         }
@@ -78,8 +85,17 @@ public class TelaFazPedido extends AppCompatActivity implements View.OnClickList
     {
         AlertDialog.Builder construtor = new AlertDialog.Builder(context);
         construtor.setTitle("Banco");
+        construtor.setMessage("Digite um ID e CPF!");
+        alerta = construtor.create();
+        alerta.show();
+    }
+    public void alertar2(Context context)
+    {
+        AlertDialog.Builder construtor = new AlertDialog.Builder(context);
+        construtor.setTitle("Banco");
         construtor.setMessage("Id produto ou CPF não encontrado!");
         alerta = construtor.create();
         alerta.show();
     }
+
 }

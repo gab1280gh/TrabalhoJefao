@@ -66,7 +66,7 @@ public class ManipulaProduto {
         return listaProduto;
     }
 
-    public Produto buscaProdutoPorId(String s) {
+    public Produto buscaProdutoPorId(int s) {
 
         Produto produto;
         String sql = "select * from produto where id = " + s;

@@ -82,7 +82,8 @@ public class TelaProdutos extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == bt_inserirProduto.getId()) {
             Produto produto = new Produto();
             produto.setDescricao(et_descricaoProduto.getText().toString());
-            produto.setValor(Double.valueOf(et_valorProduto.getText().toString()));
+            produto.setValor(Double.parseDouble(et_valorProduto.getText().toString()));
+            produto.setFoto("");
             manipulaProduto.abrir();
             long verificaInsercao = manipulaProduto.inserirProduto(produto);
             alertar(this);

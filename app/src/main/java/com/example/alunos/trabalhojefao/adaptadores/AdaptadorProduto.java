@@ -46,12 +46,12 @@ public class AdaptadorProduto extends BaseAdapter {
         TextView tv_sub_id_caminhao = subTela.findViewById(R.id.tv_sub_id_caminhao);
         TextView tv_sub_produtoDescricao = subTela.findViewById(R.id.tv_sub_produtoDescricao);
         TextView tv_sub_produtoValor = subTela.findViewById(R.id.tv_sub_produtoValor);
-        TextView tv_sub_produtoFoto = subTela.findViewById(R.id.tv_sub_produtoFoto);
+//        TextView tv_sub_produtoFoto = subTela.findViewById(R.id.tv_sub_produtoFoto);
 
         tv_sub_id_caminhao.setText(String.valueOf(produto.getId()));
         tv_sub_produtoDescricao.setText(produto.getDescricao());
-        tv_sub_produtoValor.setText(String.valueOf(produto.getValor()));
-        tv_sub_produtoFoto.setText(produto.getFoto());
+        tv_sub_produtoValor.setText(Double.toString(produto.getValor()));
+//        tv_sub_produtoFoto.setText(produto.getFoto());
 
         return subTela;
     }
