@@ -1,8 +1,9 @@
 package com.example.alunos.trabalhojefao.banco;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pedido {
+public class Pedido implements Serializable {
 
     private int id;
 

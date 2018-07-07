@@ -25,6 +25,7 @@ public class TelaPedidos extends AppCompatActivity implements View.OnClickListen
     ListView lv_pedidos;
     ManipulaPedidos manipulaPedidos;
     ArrayList<Pedido> al_pedido;
+    Pedido pedido;
 
 
     @Override
@@ -77,6 +78,9 @@ public class TelaPedidos extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        pedido = (Pedido)parent.getAdapter().getItem(position);
+        Intent it = new Intent (TelaPedidos.this, TelaVisuPedido.class);
+        it.putExtra("pedido", pedido);
+        startActivity(it);
     }
 }
