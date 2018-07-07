@@ -1,6 +1,8 @@
 package com.example.alunos.trabalhojefao;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.example.alunos.trabalhojefao.adaptadores.AdaptadorPP;
 import com.example.alunos.trabalhojefao.adaptadores.AdaptadorProduto;
 import com.example.alunos.trabalhojefao.banco.ManipulaPedidos;
+import com.example.alunos.trabalhojefao.banco.ManipulaProduto;
 import com.example.alunos.trabalhojefao.banco.Pedido;
 import com.example.alunos.trabalhojefao.banco.Produto;
 import com.example.alunos.trabalhojefao.banco.Produtos_Pedido;
@@ -28,6 +31,8 @@ public class TelaVisuPedido extends AppCompatActivity implements CompoundButton.
     ManipulaPedidos manipulaPedidos;
     ArrayList<Produto> al_produtos_pedido;
     Pedido pedido;
+    ManipulaProduto manipulaProdutos;
+    AlertDialog alerta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +64,10 @@ public class TelaVisuPedido extends AppCompatActivity implements CompoundButton.
     }
 
     public void montarListView() {
-        manipulaPedidos = new ManipulaPedidos(this);
-        manipulaPedidos.abrir();
-        al_produtos_pedido = manipulaPedidos.retornaProdutos_Pedido(pedido.getId());
-        manipulaPedidos.fechar();
+        manipulaProdutos = new ManipulaProduto(this);
+        manipulaProdutos.abrir();
+        al_produtos_pedido = manipulaProdutos.retornaProdutos_Pedido(pedido.getId());
+        manipulaProdutos.fechar();
         if (al_produtos_pedido != null && !al_produtos_pedido.isEmpty()) {
             lv_visu.setAdapter(new AdaptadorProduto(this, al_produtos_pedido));
         }
@@ -85,7 +90,20 @@ public class TelaVisuPedido extends AppCompatActivity implements CompoundButton.
             startActivity(it);
         }
         if (v.getId() == bt_remover.getId()){
-
+            alertar(this);
+//            manipulaPedidos = new ManipulaPedidos(this);
+//            manipulaPedidos.abrir();
+//            manipulaPedidos.remover(pedido);
+//            manipulaPedidos.removeConexao(pedido);
+//            manipulaPedidos.fechar();
         }
+    }
+
+    private void alertar(Context context) {
+        AlertDialog.Builder construtor = new AlertDialog.Builder(context);
+        construtor.setTitle("Falha");
+        construtor.setMessage("Eu não consegui implementar esse método, não consegui entender como fazer foreign key funcionar, mas eu tentei :(");
+        alerta = construtor.create();
+        alerta.show();
     }
 }

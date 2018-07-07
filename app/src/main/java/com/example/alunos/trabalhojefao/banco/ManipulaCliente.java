@@ -91,4 +91,19 @@ public class ManipulaCliente {
         }
         return(cliente);
     }
+
+    public void atualizar(Cliente cliente) {
+        try{
+            pacoteDeInsercao = new ContentValues();
+            pacoteDeInsercao.put("cpf", cliente.getCpf());
+            pacoteDeInsercao.put("nome", cliente.getNome());
+            pacoteDeInsercao.put("endereco", cliente.getEndereco());
+            pacoteDeInsercao.put("telefone", cliente.getTelefone());
+            manipulaBancoDeDados.update("cliente", pacoteDeInsercao,  "id = " + cliente.getId(), null);
+            //update(String table, ContentValues values, String whereClause, String[] whereArgs)
+        }catch(Exception e){
+            Log.i("Erro","Erro ao alterar");
+        }
+
+    }
 }

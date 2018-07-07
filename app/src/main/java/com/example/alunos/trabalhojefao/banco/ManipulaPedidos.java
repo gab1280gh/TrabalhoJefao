@@ -111,22 +111,13 @@ public class ManipulaPedidos {
         }
     }
 
-    public ArrayList<Produto> retornaProdutos_Pedido(int id) {
-        Produto produto;
-        ArrayList<Produto> listaPP = new ArrayList<>();
-        String sql = "select produto.id, produto.descricao, produto.valor from produto inner join produto_pedido on produto.id = produto_pedido.fk_id_produto where produto_pedido.fk_id_pedido = " + id;
-        buscador = manipulaBancoDeDados.rawQuery(sql, null);
-        if(buscador.getCount()>0)
-        {
-            buscador.moveToFirst();
-            do{
-                produto = new Produto (buscador.getInt(0), buscador.getString(1), buscador.getInt(2));
-                listaPP.add(produto);
-            }while(buscador.moveToNext());
-        }else{
-            listaPP = null;
-        }
-        return listaPP;
+
+    public void remover(Pedido pedido) {
+        manipulaBancoDeDados.delete("pedido", "id = " + pedido.getId(), null);
+    }
+
+    public void removeConexao(Pedido pedido) {
+        manipulaBancoDeDados.delete("produto_pedido", "fk_id_pedido = " + pedido.getId(), null);
     }
 }
 

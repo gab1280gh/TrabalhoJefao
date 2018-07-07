@@ -30,7 +30,7 @@ public class Produto {
         this.valor = valor;
     }
 
-    public Produto(int anInt, String string, double aDouble) {
+    public Produto(int anInt, String string, Double aDouble) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;

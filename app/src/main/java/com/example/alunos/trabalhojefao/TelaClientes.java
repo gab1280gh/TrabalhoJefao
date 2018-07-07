@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class TelaClientes extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    EditText et_nomeCliente, et_telefoneCliente, et_enderecoCliente, et_cpf;
+    EditText et_nomeCliente, et_telefoneCliente, et_enderecoCliente, et_cpf, et_id;
     Button bt_inserirCliente, bt_atualizarCliente, bt_removerCliente, bt_voltar;
     ListView lv_clientes;
     ManipulaCliente manipulador;
@@ -30,6 +30,7 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
     AlertDialog alerta;
     Cliente cliente;
     MediaPlayer mediaPlayer1;
+    MediaPlayer mediaPlayer2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_tela_clientes);
 
         mediaPlayer1 = MediaPlayer.create(this, R.raw.beep03);
+        mediaPlayer2 = MediaPlayer.create(this, R.raw.beep01);
 
         bt_inserirCliente = findViewById(R.id.BT_InsCliente);
         bt_atualizarCliente = findViewById(R.id.BT_attCliente);
@@ -47,6 +49,7 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
         et_enderecoCliente = findViewById(R.id.ET_endeCli);
         et_telefoneCliente = findViewById(R.id.ET_teleCli);
         et_cpf = findViewById(R.id.et_cpf);
+        et_id = findViewById(R.id.ET_idPessoinha);
 
         lv_clientes = findViewById(R.id.LV_cli);
 
@@ -88,6 +91,7 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
             manipulador.abrir();
             long verificaInsercao = manipulador.inserir(cliente);
             alertar(this);
+            tocarLocal2();
             manipulador.fechar();
             et_nomeCliente.setText("");
             et_cpf.setText("");
@@ -102,6 +106,26 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
 
         }
 
+        if (v.getId() == bt_atualizarCliente.getId()){
+            if (et_nomeCliente.getText().toString().matches("") || et_cpf.getText().toString().matches("") || et_enderecoCliente.getText().toString().matches("") || et_telefoneCliente.getText().toString().matches("")){
+                alertinho(this);
+            }else{
+                int id = Integer.parseInt(et_id.getText().toString());
+                String nome = et_nomeCliente.getText().toString();
+                String telefone = et_telefoneCliente.getText().toString();
+                String endereco = et_enderecoCliente.getText().toString();
+                String cpf = et_cpf.getText().toString();
+                cliente = new Cliente(cpf, nome, telefone, endereco);
+                cliente.setId(id);
+                manipulador.abrir();
+                manipulador.atualizar(cliente);
+                manipulador.fechar();
+                tocarLocal2();
+                alertar(this);
+            }
+
+        }
+
         if (v.getId() == bt_removerCliente.getId()){
 
             String cpf = et_cpf.getText().toString();
@@ -113,7 +137,6 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
             manipulador.abrir();
             manipulador.deletar(cliente);
             manipulador.fechar();
-            tocarLocal();
             alertar(this);
         }
 
@@ -123,12 +146,22 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
     {
         mediaPlayer1.start();
     }
+    public void tocarLocal2() { mediaPlayer2.start(); }
 
     public void alertar(Context context)
     {
         AlertDialog.Builder construtor = new AlertDialog.Builder(context);
         construtor.setTitle("Banco");
         construtor.setMessage("Sucesso!");
+        alerta = construtor.create();
+        alerta.show();
+    }
+
+    public void alertinho(Context context)
+    {
+        AlertDialog.Builder construtor = new AlertDialog.Builder(context);
+        construtor.setTitle("Erro!");
+        construtor.setMessage("Insira dados primeiro");
         alerta = construtor.create();
         alerta.show();
     }
@@ -141,6 +174,7 @@ public class TelaClientes extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         cliente = (Cliente)parent.getAdapter().getItem(position);
+        et_id.setText(String.valueOf(cliente.getId()));
         et_nomeCliente.setText(cliente.getNome());
         et_telefoneCliente.setText(cliente.getTelefone());
         et_cpf.setText(String.valueOf(cliente.getCpf()));
